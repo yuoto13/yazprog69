@@ -1,17 +1,17 @@
-#Функция для расчета суммы оплаты за поездку на такси.
+# Заданные тарифы для такси
+BASE_RATE = 4.00  # Базовая стоимость поездки
+RATE_PER_KM = 0.25  # Стоимость за каждый километр
+DISTANCE_PER_RATE = 140  # Дистанция в метрах, соответствующая тарифу за километр
+
+# Функция для расчета стоимости поездки на такси
 def taxi_payment(distance):
-    base_tariff = 4.00  # Базовый тариф
-    rate_per_140m = 0.25  # Ставка за каждые 140 м
+    distance_in_meters = distance * 1000  # Переводим расстояние из километров в метры
+    fare = BASE_RATE + (distance_in_meters / DISTANCE_PER_RATE) * RATE_PER_KM  # Расчет общей стоимости поездки
+    return fare
 
-    # Расчет количества 140-метровых отрезков
-    distance_in_meters = distance * 1000
-    num_140m_segments = distance_in_meters / 140
+# Расстояние поездки в километрах, умноженное на номер вашего варианта (7)
+distance = 10 * 7
+total_rate = taxi_payment(distance)  # Вызов функции для расчета общей стоимости поездки
 
-    # Расчет итоговой суммы оплаты
-    total_payment = base_tariff + rate_per_140m * num_140m_segments
-    return total_payment
-
-# Пример использования функции для расчета оплаты за поездку на такси
-distance = float(input("Введите расстояние поездки (в километрах) умноженное на номер вашего варианта: "))
-total_payment = taxi_payment(distance)
-print("Итоговая сумма оплаты за поездку на такси: $", round(total_payment, 2))
+# Вывод итоговой суммы оплаты за поездку на экран
+print(f"Итоговая сумма оплаты такси за поездку {distance} км: ${total_rate:.2f}")
