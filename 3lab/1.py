@@ -1,11 +1,21 @@
-#ввод
-numbers = list(map(int, input("числа через пробел: ").split()))
-# Проверяем, что список не пуст
-if not numbers:  
-    print("пусто тут")
+def find_largest(numbers):
+    if not numbers:  
+        return None  # Если список пуст, возвращаем None
+# Первый элемент списка присваиваем переменной largest
+    largest = numbers[0] 
+# Проходим по каждому числу в списке 
+    for number in numbers:  
+# Если текущее число больше текущего максимального, то
+        if number > largest: 
+# Обновляем переменную largest значением текущего числа 
+            largest = number  
+# Возвращаем максимальное число
+    return largest 
+
+# Пример использования функции
+numbers = list(map(int, input("Введите числа через пробел: ").split()))
+result = find_largest(numbers)
+if result is not None:
+    print("Максимальное число:", result)
 else:
-    largest = numbers[0]  # Первый элемент списка присваиваем переменной largest
-    for number in numbers:  # Проходим по каждому числу в списке
-        if number > largest:  # Если текущее число больше текущего максимального,то
-            largest = number  # Обновляем переменную largest значением текущего числа
-    print("макс:", largest)  # Выводим максимальное число
+    print("Список пуст.")
