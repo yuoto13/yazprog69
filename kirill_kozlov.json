@@ -13,17 +13,12 @@
     "elev mask": "15.0 deg",
     "dynamics": "off",
     "tidecorr": "on",
-    "ionos opt": null,
     "tropo opt": "Estimate ZTD+Grad",
     "ephemeris": "Precise",
     "navi sys": "GPS",
-    "amb res": null,
-    "val thres": null,
     "antenna1": "( 0.0000  0.0000  0.6440)",
-    "antenna2": null,
-    "ref pos": null,
-    "x_aver": -2478003.7201131945,
-    "y_aver": -4655348.728030104,
-    "z_aver": 3577932.44178691,
-    "variant": null
+    "x_aver": -2478003.720113195,
+    "y_aver": -4655348.728030121,
+    "z_aver": 3577932.4417868895,
+    "variant": 7
 }
