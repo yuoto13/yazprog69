@@ -1,0 +1,29 @@
+{
+    "program": "RTKPOST ver.2.4.3 b34",
+    "inp file": [
+        "C:\\Users\\Danisimo\\Desktop\\?????????\\CHIL\\chil0370.22o",
+        "C:\\Users\\Danisimo\\Desktop\\?????????\\BRDM00DLR_S_20220370000_01D_MN.rnx",
+        "C:\\Users\\Danisimo\\Desktop\\?????????\\igs21960.sp3",
+        "C:\\Users\\Danisimo\\Desktop\\?????????\\igs21960.clk_30s"
+    ],
+    "obs start": "2022/02/06 00:00:00.0 GPST (week2196      0.0s)",
+    "obs end": "2022/02/06 23:59:30.0 GPST (week2196  86370.0s)",
+    "pos mode": "PPP Static",
+    "solution": "Combined",
+    "elev mask": "15.0 deg",
+    "dynamics": "off",
+    "tidecorr": "on",
+    "ionos opt": null,
+    "tropo opt": "Estimate ZTD+Grad",
+    "ephemeris": "Precise",
+    "navi sys": "GPS",
+    "amb res": null,
+    "val thres": null,
+    "antenna1": "( 0.0000  0.0000  0.6440)",
+    "antenna2": null,
+    "ref pos": null,
+    "x_aver": -2478003.7201131945,
+    "y_aver": -4655348.728030104,
+    "z_aver": 3577932.44178691,
+    "variant": null
+}
