@@ -9,8 +9,8 @@ with open(file_path, "r") as file:
     array = [[]]  # Инициализация списка для хранения строк данных
 
     # Чтение первых строк с ключ-значение парами
-    line = file.readline().split(':', 1)
-    while line[0][0] == '%' and len(line) == 2:
+    line = file.readline().split(':', 1) #читает одну строчку
+    while line[0][0] == '%' and len(line) == 2: #находит % и проверяет что список содержит два элмента
         key = line[0].replace('%', '').strip()  # Удаление символа '%' и лишних пробелов из ключа
         value = line[1].strip()  # Удаление пробелов из значения
         
@@ -54,7 +54,7 @@ with open(file_path, "r") as file:
     avgy /= counter  # Вычисление среднего значения y
     avgz /= counter  # Вычисление среднего значения z
 
-    # Обновление словаря данными средних значений
+    # Обновление данных средних значений
     data.update({"x_aver": avgx})
     data.update({"y_aver": avgy})
     data.update({"z_aver": avgz})
@@ -62,6 +62,6 @@ with open(file_path, "r") as file:
 
 # Запись результатов в JSON файл
 with open(output_file_path, "w") as json_file:
-    json.dump(data, json_file, indent=4)  # Запись словаря данных в JSON файл с форматированием
+    json.dump(data, json_file, indent=4)  # Запись данных в JSON файл с форматированием
 
 print(f"JSON файл был создан и сохранён по пути: {output_file_path}")
