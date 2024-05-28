@@ -1,55 +1,67 @@
-import re
 import json
 
-# Загрузка данных из файла
-with open('6lab\pp.json', 'r') as file:
-    lines = file.readlines()
+# Открытие файла для чтения
+file_path = '07.json'
+output_file_path = 'kk.json'
 
-# Парсинг метаданных
-data_dict = {}
-for line in lines:
-    if line.startswith('%'):
-        line = line.replace('%', '').strip()
-        keyv = re.split(r'\s*:\s*', line, maxsplit=1)
-        key = keyv[0].strip()
-        if len(keyv) > 1:
-            value = keyv[1].strip()
-            if "(x/y/z-ecef=WGS84,Q=1" not in key:
-                if key in data_dict:
-                    if isinstance(data_dict[key], list):
-                        data_dict[key].append(value)
-                    else:
-                        data_dict[key] = [data_dict[key], value]
-                else:
-                    data_dict[key] = value
+with open(file_path, "r") as file:
+    data = dict()  # Инициализация пустого словаря для хранения данных
+    array = [[]]  # Инициализация списка для хранения строк данных
 
-# Парсинг данных измерений
-mea = []
-for line in lines:
-    if not line.startswith('%'):
-        values = line.split()
-        if len(values) >= 5 and re.match(r'\d{4}/\d{2}/\d{2}', values[0]):
-            mea.append([' '.join(values[0:2])] + values[2:])
+    # Чтение первых строк с ключ-значение парами
+    line = file.readline().split(':', 1)
+    while line[0][0] == '%' and len(line) == 2:
+        key = line[0].replace('%', '').strip()  # Удаление символа '%' и лишних пробелов из ключа
+        value = line[1].strip()  # Удаление пробелов из значения
+        
+        if key in data:
+            if not isinstance(data[key], list):
+                data[key] = [data[key]]  # Преобразование значения в список, если это не список
+            data[key].append(value)  # Добавление значения в список
+        else:
+            data[key] = value  # Добавление новой пары ключ-значение
 
-# Извлечение координат и расчет средних значений
-xv = [float(mea[i][1]) for i in range(len(mea))]
-yv = [float(mea[i][2]) for i in range(len(mea))]
-zv = [float(mea[i][3]) for i in range(len(mea))]
+        line = file.readline().split(':', 1)  # Чтение следующей строки
 
-mx = sum(xv) / len(xv)
-my = sum(yv) / len(yv)
-mz = sum(zv) / len(zv)
+    # Пропуск ненужных строк
+    for _ in range(3):
+        line = file.readline().split(' ')
 
-# Формирование результирующего словаря
-result_dict = {
-    **data_dict,
-    "x_aver": mx,
-    "y_aver": my,
-    "z_aver": mz,
-    "variant": 7,
-}
+    # Инициализация переменных для вычисления среднего значения
+    avgx = avgy = avgz = counter = 0
 
-# Запись результата в JSON файл с именем кирилл козлов
-output_filename = 'kirill_kozlov.json'
-with open(output_filename, 'w', encoding='utf-8') as json_file:
-    json.dump(result_dict, json_file, ensure_ascii=False, indent=4)
+    # Чтение и обработка оставшихся строк с данными
+    while len(line) > 1:
+        # Добавление строки данных в массив
+        current_line_data = [item.strip() for item in line if item]  # Очистка элементов строки от пробелов
+        if len(current_line_data) > 1:
+            datetime = current_line_data[0] + ' ' + current_line_data[1]  # Объединение даты и времени
+            array[counter] = [datetime] + current_line_data[2:]  # Формирование списка данных с объединенной датой и временем
+            counter += 1  # Увеличение счетчика строк данных
+            line = file.readline().split(' ')  # Чтение следующей строки
+            if len(line) > 1:  # Проверка, что строка не пустая перед добавлением нового списка
+                array.append([])
+        else:
+            break  # Прерывание цикла, если строка пустая
+
+    # Вычисление средних значений
+    for i in range(len(array)):
+        avgx += float(array[i][1])  # Суммирование значений x
+        avgy += float(array[i][2])  # Суммирование значений y
+        avgz += float(array[i][3])  # Суммирование значений z
+
+    avgx /= counter  # Вычисление среднего значения x
+    avgy /= counter  # Вычисление среднего значения y
+    avgz /= counter  # Вычисление среднего значения z
+
+    # Обновление словаря данными средних значений
+    data.update({"x_aver": avgx})
+    data.update({"y_aver": avgy})
+    data.update({"z_aver": avgz})
+    data.update({"variant": 7})
+
+# Запись результатов в JSON файл
+with open(output_file_path, "w") as json_file:
+    json.dump(data, json_file, indent=4)  # Запись словаря данных в JSON файл с форматированием
+
+print(f"JSON файл был создан и сохранён по пути: {output_file_path}")
