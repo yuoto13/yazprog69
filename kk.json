@@ -17,8 +17,9 @@
     "ephemeris": "Precise",
     "navi sys": "GPS",
     "antenna1": "( 0.0000  0.0000  0.6440)",
-    "x_aver": -2478003.720113195,
-    "y_aver": -4655348.728030121,
-    "z_aver": 3577932.4417868895,
+    "(x/y/z-ecef=WGS84,Q=1": "fix,2:float,3:sbas,4:dgps,5:single,6:ppp,ns=# of satellites)",
+    "x_aver": -2478003.720116754,
+    "y_aver": -4655348.72802838,
+    "z_aver": 3577932.441787188,
     "variant": 7
 }

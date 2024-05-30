@@ -53,7 +53,7 @@ with open(file_path, "r") as file:
     length = len(array)
     avgx /= length  # Вычисление среднего значения x
     avgy /= length  # Вычисление среднего значения y
-    avgz /= length 
+    avgz /= length  # Вычисление среднего значения z
 
     # Обновление данных средних значений
     data.update({"x_aver": avgx})
