@@ -50,9 +50,10 @@ with open(file_path, "r") as file:
         avgy += float(array[i][2])  # Суммирование значений y
         avgz += float(array[i][3])  # Суммирование значений z
 
-    avgx /= counter  # Вычисление среднего значения x
-    avgy /= counter  # Вычисление среднего значения y
-    avgz /= counter  # Вычисление среднего значения z
+    length = len(array)
+    avgx /= length  # Вычисление среднего значения x
+    avgy /= length  # Вычисление среднего значения y
+    avgz /= length 
 
     # Обновление данных средних значений
     data.update({"x_aver": avgx})
